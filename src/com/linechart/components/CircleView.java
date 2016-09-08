@@ -18,7 +18,6 @@ import com.linechart.utils.Utils;
 public class CircleView extends RelativeLayout {
 	private TextView circleFrame;
 
-
 	public CircleView(Context context, int layoutResource, int id) {
 		super(context);
 		setupLayoutResource(layoutResource);
@@ -36,7 +35,8 @@ public class CircleView extends RelativeLayout {
 	}
 
 	public void draw(Canvas canvas, float posx, float posy, int position) {
-		posx += (position == 0 ? position : getXOffset());
+		// posx += (position == 0 ? position : getXOffset());
+		posx += getXOffset();
 		posy += getYOffset();
 		canvas.translate(posx, posy);
 		draw(canvas);

@@ -21,7 +21,7 @@ import com.linechart.utils.MsgChart;
 public class ChartFactory {
 
 	public static LineChart createChartView(Context context, Object[] xObject, Object[] yObject, MarkerView markerView,
-			CircleView circleView,boolean percentage) {
+			CircleView circleView, boolean percentage) {
 		try {
 			String[] xValue = new String[xObject.length];
 			float[] yValue = new float[yObject.length];
@@ -31,7 +31,7 @@ public class ChartFactory {
 			for (int i = 0; i < yObject.length; i++) {
 				yValue[i] = (Float) yObject[i];
 			}
-			return createChartView(context, xValue, yValue, markerView,circleView, percentage);
+			return createChartView(context, xValue, yValue, markerView, circleView, percentage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -44,6 +44,9 @@ public class ChartFactory {
 			CircleView circleView, boolean percentage) {
 		LineChart lineChart = new LineChart(context);
 		lineChart.setBackgroundColor(Color.parseColor("#ffffff"));
+		if (xObject.length == 0) {
+			return lineChart;
+		}
 		try {
 			lineChart.setHighlightEnabled(true);
 			lineChart.setTouchEnabled(true);
@@ -97,16 +100,19 @@ public class ChartFactory {
 			lineDataSet.setDrawCircleHole(true); // true为空心，false为实心
 			lineDataSet.setValueTextSize(12f); // 数值的字体大小
 			lineDataSet.setFillAlpha(25); // 填充色的透明度，0为完全透明
-			lineDataSet.setFillColor(Color.parseColor("#ea3636")); // 填充色
+//			lineDataSet.setFillColor(Color.parseColor("#ea3636")); // 填充色
 			ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
 			dataSets.add(lineDataSet);
 			LineData data = new LineData(xVals, dataSets);
 			lineChart.setData(data);
-			lineChart.animateX(2000, Easing.EasingOption.EaseInOutQuart);//线条动画
+			if (xVals.size() ==1) {
+				lineChart.animateX(10, Easing.EasingOption.EaseInOutQuart);
+			} else {
+				lineChart.animateX(2000, Easing.EasingOption.EaseInOutQuart);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return lineChart;
 	}
-
 }

@@ -37,6 +37,7 @@ import com.linechart.renderer.XAxisRenderer;
 import com.linechart.renderer.YAxisRenderer;
 import com.linechart.utils.FillFormatter;
 import com.linechart.utils.Highlight;
+import com.linechart.utils.MsgChart;
 import com.linechart.utils.SelInfo;
 import com.linechart.utils.Transformer;
 import com.linechart.utils.Utils;
@@ -194,6 +195,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleData<? exte
 		} else {
 			// eden
 			this.mAxisLeft.scale = (max - min) * 0.75F;
+			MsgChart.i("mAxisLeft.scale="+mAxisLeft.scale);
 			this.mAxisLeft.mAxisMaximum = max - (max - min) * 0.6F + this.mAxisLeft.scale * 1.5F;
 			this.mAxisLeft.mAxisMinimum = max + (max - min) * 0.15F - ((float) this.mAxisLeft.getLabelCount() - 1.0F)
 					* this.mAxisLeft.scale;
@@ -207,7 +209,6 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleData<? exte
 		if (this.mAxisLeft.isStartAtZeroEnabled()) {
 			this.mAxisLeft.mAxisMinimum = 0.0F;
 		}
-		//Y坐标修改
 		this.mAxisLeft.mAxisMinimum = 0.0F;
 		this.mAxisLeft.mAxisMaximum = Float.parseFloat(Utils.getFourDecimal(this.mAxisLeft.mAxisMaximum));
 		this.mAxisLeft.scale = (this.mAxisLeft.mAxisMaximum - this.mAxisLeft.mAxisMinimum)

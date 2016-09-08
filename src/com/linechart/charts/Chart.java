@@ -277,31 +277,35 @@ public abstract class Chart<T extends ChartData<? extends DataSet<? extends Entr
 				if (xIndex > this.mDeltaX)
 					continue;
 				Entry e = this.mData.getEntryForHighlight(this.mIndicesToHightlight[i]);
-				
+
 				if (e == null) {
 					continue;
 				}
 				float[] pos = getMarkerPosition(e, dataSetIndex);
 				// float[] pos = getMarkerPosition(e, highlight);
-				
+
 				if (!this.mViewPortHandler.isInBounds(pos[0], pos[1])) {
 					continue;
 				}
 				this.mMarkerView.refreshContent(e, dataSetIndex);
-				
-				this.mMarkerView.measure(View.MeasureSpec.makeMeasureSpec(0, 0), View.MeasureSpec.makeMeasureSpec(0, 0));
-				this.mMarkerView.layout(0, 0, this.mMarkerView.getMeasuredWidth(), this.mMarkerView.getMeasuredHeight());
+
+				this.mMarkerView
+						.measure(View.MeasureSpec.makeMeasureSpec(0, 0), View.MeasureSpec.makeMeasureSpec(0, 0));
+				this.mMarkerView
+						.layout(0, 0, this.mMarkerView.getMeasuredWidth(), this.mMarkerView.getMeasuredHeight());
 				if (pos[1] - this.mMarkerView.getHeight() <= 0.0F) {
 					float y = this.mMarkerView.getHeight() - pos[1];
 					// eden 小红块位置设置
-					// this.mMarkerView.draw(canvas, pos[0], pos[1] + y, xIndex);
+					// this.mMarkerView.draw(canvas, pos[0], pos[1] + y,
+					// xIndex);
 					if (pos[0] + 150 >= Utils.getScreenWidth(mContext)) {
 						this.mMarkerView.draw(canvas, pos[0] - 50, pos[1] + y, xIndex);
 					} else {
 						this.mMarkerView.draw(canvas, pos[0], pos[1] + y, xIndex);
 					}
 				} else {
-					// this.mMarkerView.draw(canvas, pos[0], pos[1] - (yCircleSize +
+					// this.mMarkerView.draw(canvas, pos[0], pos[1] -
+					// (yCircleSize +
 					// 1.0F), xIndex);
 					if (pos[0] + 150 >= Utils.getScreenWidth(mContext)) {
 						this.mMarkerView.draw(canvas, pos[0] - 50, pos[1] - (yCircleSize + 1.0F), xIndex);
@@ -326,7 +330,6 @@ public abstract class Chart<T extends ChartData<? extends DataSet<? extends Entr
 			int dataSetIndex = 0;
 			pos = getMarkerPosition(e, dataSetIndex);
 			mMarkerView.refreshContent(e, dataSetIndex);
-
 			mMarkerView.measure(View.MeasureSpec.makeMeasureSpec(0, 0), View.MeasureSpec.makeMeasureSpec(0, 0));
 			mMarkerView.layout(0, 0, mMarkerView.getMeasuredWidth(), mMarkerView.getMeasuredHeight());
 			mCircleView.measure(View.MeasureSpec.makeMeasureSpec(0, 0), View.MeasureSpec.makeMeasureSpec(0, 0));
@@ -353,7 +356,7 @@ public abstract class Chart<T extends ChartData<? extends DataSet<? extends Entr
 			}
 			int circleColor = lineDataSet.getCircleColor(0);
 			renderPaint.setColor(circleColor);
-			// 去除默认小圆点
+			// eden 去除默认小圆点
 			// canvas.drawCircle(pos[0], pos[1], yCircleSize, renderPaint);
 			mCircleView.draw(canvas, pos[0], pos[1] + Utils.convertDpToPixel(6), entries.size() - 1);
 			renderPaint.setColor(lineDataSet.getCircleHoleColor());
